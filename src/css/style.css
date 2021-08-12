@@ -1,0 +1,114 @@
+@import url('https://fonts.googleapis.com/css2?family=Ravi+Prakash&display=swap');
+
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+
+.material-icons {
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;  /* Preferred icon size */
+    display: inline-block;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+  
+    /* Support for all WebKit browsers. */
+    -webkit-font-smoothing: antialiased;
+    /* Support for Safari and Chrome. */
+    text-rendering: optimizeLegibility;
+  
+    /* Support for Firefox. */
+    -moz-osx-font-smoothing: grayscale;
+  
+    /* Support for IE. */
+    font-feature-settings: 'liga';
+}
+
+body {
+    background-color: rgb(78, 76, 76);
+}
+
+.blank {
+    background-color: rgb(97, 112, 97);
+    color: rgb(97, 112, 97);
+}
+
+#container {
+    width: 70%;
+    margin: 0 auto;
+    border: 1px solid black;
+    border-radius: 30px;
+    padding: 20px;
+    position: relative;
+}
+
+.widget {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+}
+
+.btn-refresh {
+    width: 10%;
+    margin: 5px 0 5px auto;
+    border: none;
+    border-radius: 5px;
+}
+
+.film-box {
+    margin-bottom: 30px;
+}
+
+.film-box:last-child {
+    margin-bottom: 0;
+}
+
+.film-name {
+    display: inline;
+}
+
+.film-name, .genre, .description {
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-bottom: 30px;
+}
+
+.film-body {
+    display: flex;
+    margin-top: 30px;
+    flex-direction: row;
+}
+
+img {
+    width: 150px;
+    height: 150px;
+    margin-right: 30px;
+}
+
+.text:first-child {
+    margin-bottom: 30px;
+}
+
+.blank-img {
+    width: 150px;
+    height: 150px;
+    margin-right: 30px;
+    background-color: rgb(97, 112, 97);
+}
+
+.pop-up {
+    position: absolute;
+    width: 50%;
+    box-sizing: border-box;
+    border: 1px solid black;
+    z-index: 9999;
+}
+
+.pop-up-text {
+    width: 100%;
+    box-sizing: border-box;
+    margin: 0 auto;
+}
