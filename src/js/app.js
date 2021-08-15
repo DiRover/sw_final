@@ -1,7 +1,9 @@
+import { fromEvent } from 'rxjs';
 import getPage from './getPage';
 import { url } from './constans';
 import Store from './Store';
 import RenderWidget from './RenderWidget';
+import handler from './handler';
 
 const container = document.querySelector('.container');
 
@@ -25,7 +27,12 @@ if (navigator.serviceWorker) {
 
   navigator.serviceWorker.addEventListener('message', evt => {
     //page.render(evt.data, null);
+    console.log('message!!')
     store.getNetworkData(evt.data);
   });
 
 }
+
+fromEvent(document, 'click').subscribe((e) => { // обрабатваем все клики на странице технологией RxJS
+  handler(e.target, store, url);// отработчик кликов
+});

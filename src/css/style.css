@@ -27,10 +27,6 @@
     font-feature-settings: 'liga';
 }
 
-body {
-    background-color: rgb(78, 76, 76);
-}
-
 .blank {
     background-color: rgb(97, 112, 97);
     color: rgb(97, 112, 97);
@@ -56,6 +52,25 @@ body {
     margin: 5px 0 5px auto;
     border: none;
     border-radius: 5px;
+    cursor: pointer;
+    background-color: cornflowerblue;
+}
+
+.msg {
+    position: absolute;
+    top: 10px;
+    left: 50px;
+    
+}
+
+.cache {
+    color: red;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.network {
+    display: none;
 }
 
 .film-box {

@@ -12,21 +12,31 @@ export default class RenderWidget {// класс для списка проек�
   init() { // метод для отрисовки
     this.store.state$// берём поток store$ у экземпляра класса Store
       .pipe(
-        pluck('data'), // оператором pluck ловим в нём объект с проектами по ключу data
+        pluck('info'), // оператором pluck ловим в нём объект с проектами по ключу data
       )
-      .subscribe((data) => { this.render(data); });// подписываемся на поток и рендерим список
+      .subscribe((info) => { this.render(info); });// подписываемся на поток и рендерим список
   }
 
-  render(data) { // метод для рендера списка
+  render(info) { // метод для рендера списка
+    const { data } = info;
+    const { status } = info;
     if (data === null) return //в начальном state ещё не определена data
+    console.log('status');
+    console.log(status);
+    console.log('status');
     this.container.innerHTML = '';
     const widget = document.createElement('div');
     widget.setAttribute('class', 'widget');
     const btn = document.createElement('button');
+    const msg = document.createElement('div');
     btn.setAttribute('class', 'btn-refresh');
+    msg.setAttribute('class', 'msg');
     btn.innerHTML = 'Refresh';
+    msg.innerHTML = `<div class = '${status}'>Error: failed to connect, server not responding. You are  seeing data from cache.</div>`
+    
     widget.append(btn);
-
+    widget.append(msg);
+    console.log(data)
     data.forEach((i) => {
         const filmBox = document.createElement('div');
         filmBox.setAttribute('class', 'film-box');
@@ -45,6 +55,7 @@ export default class RenderWidget {// класс для списка проек�
         `
         widget.append(filmBox);
     })
+
     this.container.append(widget)
   }
 }

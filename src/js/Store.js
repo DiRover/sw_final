@@ -8,21 +8,24 @@ export default class Store {
   constructor(data) {
     this.state$ = new BehaviorSubject();// сабжект (обсёрвал) с возможностью задания начального значения
     this.data = null;// записваем общий список проектов и задач
-    this.state$.next({ data: this.data });// эмитим (или задаём хз как там) первоначальный стейт
+    this.status = null;
+    this.state$.next({info: { data: this.data, status: this.status }});// эмитим (или задаём хз как там) первоначальный стейт
   }
 
   async fetchData(url) {
     const response = await fetch(url);
     const data = await response.json();
-    console.log(data);
+    //console.log(data);
     this.data = data;
-    this.state$.next({ data: this.data });
+    this.state$.next({info: { data: this.data, status: this.status }});
   }
 
-  getNetworkData(data) {
-    this.data = data;
-    console.log(data);
-    this.state$.next({ data: this.data });
+  getNetworkData(status) {
+    console.log('status')
+    console.log(status)
+    console.log('status')
+    this.status = status;
+    this.state$.next({info: { data: this.data, status: this.status }});
   }
 
 

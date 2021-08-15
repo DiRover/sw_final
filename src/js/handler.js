@@ -1,5 +1,8 @@
-export default function handler(target, store) { // обработчик кликов получает цель клика и экземпляр класс Store
-  
+export default function handler(target, store, url) { // обработчик кликов получает цель клика и экземпляр класс Store
+  if (target.classList.contains('btn-refresh')) {
+    console.log('target');
+    store.fetchData(url);
+  }
 }
 
 

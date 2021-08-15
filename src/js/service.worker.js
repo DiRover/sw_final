@@ -20,63 +20,91 @@ self.addEventListener('install', (evt) => {
   
 self.addEventListener('activate', (evt) => {
   console.log('activate')
-  evt.waitUntil(self.clients.claim());
+  evt.waitUntil((async () => {
+    await self.clients.claim();
+  })());
 });
-
-
-
 
 self.addEventListener('fetch', (evt) => {
-  console.log('sw fetch')
+  //console.log('sw fetch')
   const requestUrl = new URL(evt.request.url);
-  console.log(requestUrl);
   if (!requestUrl.pathname.startsWith('/data')) return;
   
-  
   evt.respondWith((async () => {
+
     const cache = await caches.open(CACHE_NAME);
-    console.log('ok')
-
-    try {
-      const response = await fetch(evt.request);
-      evt.waitUntil(cache.put(evt.request, response.clone()));
-      return response;
-    } catch(e) {
-      const cachedResponse = await cache.match(evt.request);
-      if (cachedResponse) {
-        return cachedResponse;
-      }
-    }
-
-  }))
-
-
-
-
-  /*
-  evt.respondWith((async () => {
-    console.log('respondWith')
-    const cache = await caches.open(CACHE_NAME);
-    const cachedResponse = await cache.match(evt.request);
-    return cachedResponse;
-  })());
-  
-  evt.waitUntil((async () => {
-    console.log('waitUntil');
     const client = await clients.get(evt.clientId);
+    
     try {
-      const response = await fetch(evt.request.url);
-      let json = await response.json();
-      client.postMessage(json);
-      console.log(response);
+
+      console.log('response')
+      const response = await fetch(evt.request);
+
+      if (response.ok) {
+
+        console.log('response from network')
+        evt.waitUntil(cache.put(evt.request, response.clone()));
+        client.postMessage('network');
+        return response;
+
+      } else {
+
+        console.log('response from cache')
+        const responseCache = await cache.match(evt.request);
+        if (responseCache) {
+          client.postMessage('cache');
+          return responseCache;
+        }
+
+      }    
     } catch(e) {
-      console.log('error')
-      client.postMessage('error');
+      console.log(e);
     }
   })());
-  */
-
-
-
 });
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//const cache = await caches.open(CACHE_NAME);
+    //const client = await clients.get(evt.clientId);
+    //let response = await fetch(evt.request);
+/*
+    if (!response) {
+      response = await cache.match(evt.request);
+      client.postMessage('delay');
+      return response;
+    }
+    
+    try {
+      console.log('response')
+      response = await fetch(evt.request);
+      console.log(response)
+      if (response.ok) {
+        console.log('response from network')
+        evt.waitUntil(cache.put(evt.request, response.clone()));
+        return response;
+      } else {
+        console.log('response from cache')
+        response = await cache.match(evt.request);
+        if (response) {
+          console.log(response)
+          return response;
+        }
+      }    
+    } catch(e) {
+      console.log(e);
+    }*/
