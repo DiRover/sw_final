@@ -15,3 +15,5 @@ export const data = [
     genre: 'Genre of film 3'
   }
 ]
+
+//заглушка для первого запуска

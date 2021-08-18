@@ -1,34 +1,29 @@
 import { fromEvent } from 'rxjs';
-import getPage from './getPage';
 import { url } from './constans';
 import Store from './Store';
 import RenderWidget from './RenderWidget';
 import handler from './handler';
 
-const container = document.querySelector('.container');
+const container = document.querySelector('.container');//получаем основной контейнер для отрисовки приложения
 
-const page = new getPage(container);
-
-const store = new Store();
-const renderWidget = new RenderWidget(store, container)
+const store = new Store();//класс для создания и управления потоками RxJS
+const renderWidget = new RenderWidget(store, container)//класс для отрисовки страницы потомками
 
 
-if (navigator.serviceWorker) {
+if (navigator.serviceWorker) {//проверяем наличие в браузере сервис воркера
   window.addEventListener('load', async () => {
-    try {
-      await navigator.serviceWorker.register('./service.worker.js');
-    } catch (e) {
+    try {//после загрузки страницы пытаемся зарегистрировать сервис воркер
+      await navigator.serviceWorker.register('./service.worker.js');//регистрируем сервис воркер
+    } catch (e) {//отлавливаем ошибку
       console.log(e);
     }
-    //page.fetchData(url);
-    store.fetchData(url);
-    renderWidget.init()
+    store.fetchData(url);//отправляем запрос на сервер для получения данных
+    renderWidget.init(); //запускаем рендер страниы
   });
 
-  navigator.serviceWorker.addEventListener('message', evt => {
-    //page.render(evt.data, null);
+  navigator.serviceWorker.addEventListener('message', evt => {//получаем сообщения от сервис воркера
     console.log('message!!')
-    store.getNetworkData(evt.data);
+    store.getNetworkData(evt.data);//обрабатываем сообщения от сервис воркера
   });
 
 }
@@ -36,3 +31,4 @@ if (navigator.serviceWorker) {
 fromEvent(document, 'click').subscribe((e) => { // обрабатваем все клики на странице технологией RxJS
   handler(e.target, store, url);// отработчик кликов
 });
+
