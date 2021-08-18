@@ -1,5 +1,20 @@
-Проблема заключается в том, что при запуске странице появляется ошибка 
-https://github.com/netology-code/ahj-homeworks/tree/master/workers
-chrome://inspect/#service-workers
-chrome://serviceworker-internals/?devtools
-https://netology.ru/profile/program/ahj-15/lessons/86381/lesson_items/420546
+[![Build status](https://ci.appveyor.com/api/projects/status/tlwssi8jfsw6awtv?svg=true)](https://ci.appveyor.com/project/DiRover/sw-final)
+
+[PAGE Task 12.3 Service worker Buggy Service](https://dirover.github.io/sw_final/)
+
+
+### Buggy Service
+
+#### Легенда
+
+Вам выпала нелёгкая задача - интегрироваться с "глючным" сторонним сервисом новостей. Сервер периодически "отваливается", отвечая кодом 500. Поскольку вы уже знакомы с Service Workers, вы решили кэшировать ответы сервера, когда они всё-таки появляются и отдавать закешированные, если сервер отвечает ошибкой.
+
+#### Описание
+
+Вам необходимо реализовать сервер, эмулирующий эту ситуацию (достаточно выставлять правильный код в koa, как мы это делали в лекции по HTTP, либо можете дополнительно ознакомиться с [обработкой ошибок в koa](https://github.com/koajs/koa/wiki/Error-Handling)).
+
+Общий вид интерфейса:
+
+![](./pic/buggy.png)
+
+Можете использовать сервер из предыдущего задания, добавив туда генерацию ошибки случайным образом.
